@@ -9,13 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shpocktask.R
 import com.example.shpocktask.data.api.ApiHelper
 import com.example.shpocktask.data.api.RetrofitBuilder
+import com.example.shpocktask.data.models.PirateShip
 import com.example.shpocktask.data.utils.CallStatus
+import com.example.shpocktask.ui.shiplist.adapter.ItemClickedCallback
+import com.example.shpocktask.ui.shiplist.adapter.PirateShipsAdapter
 import kotlinx.android.synthetic.main.fragment_ship_list.*
 import java.util.logging.Logger
 
@@ -39,6 +45,7 @@ class ShipListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getPirateShips()
         setupObserver()
+        initList()
     }
 
     private fun setupObserver() {
@@ -48,6 +55,7 @@ class ShipListFragment : Fragment() {
                     CallStatus.SUCCESS -> {
                         progressBar.visibility = View.GONE
                         d(TAG, resource.data.toString())
+                        resource.data?.let { pirateShips -> retrieveList(pirateShips.ships.filterNotNull()) }
                     }
                     CallStatus.ERROR -> {
                         progressBar.visibility = View.GONE
@@ -65,6 +73,30 @@ class ShipListFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun initList() {
+        val linearLayoutManager = LinearLayoutManager(context)
+        list_of_ships.layoutManager = linearLayoutManager
+        list_of_ships.addItemDecoration(
+            DividerItemDecoration(
+                list_of_ships.context,
+                (list_of_ships.layoutManager as LinearLayoutManager).orientation
+            ).apply {
+                setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.layer_divider)!!)
+            }
+        )
+        list_of_ships.adapter =
+            PirateShipsAdapter(requireContext(), emptyList(), object : ItemClickedCallback {
+                override fun selectedShip(ship: PirateShip) {
+
+                }
+            })
+    }
+
+    private fun retrieveList(ships: List<PirateShip>) {
+        list_of_ships.smoothScrollToPosition(0)
+        (list_of_ships.adapter as PirateShipsAdapter).updateList(ships)
     }
 
 }
