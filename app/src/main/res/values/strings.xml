@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_encountered">Error encountered</string>
+    <string name="no_title_provided">Ay! No title provided mate!</string>
+    <string name="no_description_provided">Ay! No description provided mate!</string>
 </resources>

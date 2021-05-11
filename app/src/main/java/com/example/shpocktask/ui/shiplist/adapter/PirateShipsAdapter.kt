@@ -23,24 +23,25 @@ class PirateShipsAdapter(
     private val listener: ItemClickedCallback?
 ) : RecyclerView.Adapter<PirateShipsAdapter.PirateShipsViewHolder>() {
 
-    private val FIRST_ITEM = 0
-    private val OTHER_ITEMS = 1
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PirateShipsViewHolder {
-        val view = if (viewType == FIRST_ITEM) LayoutInflater.from(context)
-            .inflate(R.layout.pirate_ship_header_row, parent, false) else LayoutInflater.from(
-            context
-        ).inflate(R.layout.pirate_ship_row, parent, false)
+        val view = LayoutInflater.from(context)
+            .inflate(R.layout.pirate_ship_header_row, parent, false)
         return PirateShipsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PirateShipsViewHolder, position: Int) {
         val ship = ships[position]
-        ship.title?.let {
-            holder.ship_title.text = it
+
+        if(!ship.title.isNullOrBlank()) {
+            holder.ship_title.text = ship.title
+        } else {
+            holder.ship_title.text = context.getString(R.string.no_title_provided)
         }
-        ship.description?.let {
-            holder.ship_description.text = it
+
+        if(!ship.description.isNullOrBlank()) {
+            holder.ship_description.text = ship.description
+        } else {
+            holder.ship_description.text = context.getString(R.string.no_description_provided)
         }
 
         ship.image?.let {
@@ -67,6 +68,7 @@ class PirateShipsAdapter(
                     }
 
                 })
+                .placeholder(R.drawable.no_image)
                 .into(holder.ship_image)
         }
     }
@@ -74,9 +76,6 @@ class PirateShipsAdapter(
     override fun getItemCount(): Int {
         return ships.size
     }
-
-    override fun getItemViewType(position: Int): Int =
-        if (position == 0) FIRST_ITEM else OTHER_ITEMS
 
     inner class PirateShipsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val container_ship: ConstraintLayout = itemView.findViewById(R.id.container_ship)
