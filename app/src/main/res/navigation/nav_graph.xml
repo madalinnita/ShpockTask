@@ -14,10 +14,18 @@
         <action
             android:id="@+id/action_shipListFragment_to_shipDetailsFragment"
             app:destination="@id/shipDetailsFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/shipDetailsFragment"
         android:name="com.example.shpocktask.ui.shipdetails.ShipDetailsFragment"
         android:label="fragment_ship_details"
-        tools:layout="@layout/fragment_ship_details" />
+        tools:layout="@layout/fragment_ship_details">
+
+        <argument
+            android:name="pirateShip"
+            app:nullable="false"
+            app:argType="com.example.shpocktask.data.models.PirateShip"/>
+
+    </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.shpocktask.data.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class PirateShip(
     @SerializedName("id") val id: Double,
@@ -8,4 +9,4 @@ data class PirateShip(
     @SerializedName("description") val description: String?,
     @SerializedName("price") val price: Int?,
     @SerializedName("image") val image: String?,
-)
+): Serializable

@@ -89,7 +89,8 @@ class ShipListFragment : Fragment() {
         list_of_ships.adapter =
             PirateShipsAdapter(requireContext(), emptyList(), object : ItemClickedCallback {
                 override fun selectedShip(ship: PirateShip) {
-
+                    val action = ShipListFragmentDirections.actionShipListFragmentToShipDetailsFragment(ship)
+                    findNavController().navigate(action);
                 }
             })
     }
