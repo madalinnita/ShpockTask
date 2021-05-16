@@ -5,4 +5,10 @@
     <string name="error_encountered">Error encountered</string>
     <string name="no_title_provided">Ay! No title provided mate!</string>
     <string name="no_description_provided">Ay! No description provided mate!</string>
+    <string name="ship_price">Price: %1$d EURO</string>
+    <string name="price_not_provided">Price not provided</string>
+    <string name="show_greeting">SHOW GREETING</string>
+    <string name="pirate_ship_greeting">Pirate Ship Greeting</string>
+    <string name="ok">OK</string>
+    <string name="SAY_LOUDLY">SAY LOUDLY</string>
 </resources>

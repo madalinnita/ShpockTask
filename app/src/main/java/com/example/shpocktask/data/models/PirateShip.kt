@@ -9,4 +9,5 @@ data class PirateShip(
     @SerializedName("description") val description: String?,
     @SerializedName("price") val price: Int?,
     @SerializedName("image") val image: String?,
+    @SerializedName("greeting_type") val greeting_type: String?,
 ): Serializable
